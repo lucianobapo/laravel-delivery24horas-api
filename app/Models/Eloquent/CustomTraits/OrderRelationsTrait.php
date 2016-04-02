@@ -72,6 +72,14 @@ trait OrderRelationsTrait
     }
 
     /**
+     * Order can have many items.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function itemOrders(){
+        return $this->hasMany(ItemOrder::class);
+    }
+
+    /**
      * Order can have many confirmations.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

@@ -88,17 +88,17 @@ class Product
     protected $estoque;
 
     /**
-     * @ORM\Column(type="float", precision=8, scale=2, nullable=true)
+     * @ORM\Column(type="float", precision=8, scale=2, nullable=true, name="valorUnitVenda")
      */
     protected $valorUnitVenda;
 
     /**
-     * @ORM\Column(type="float", precision=8, scale=2, nullable=true)
+     * @ORM\Column(type="float", precision=8, scale=2, nullable=true, name="valorUnitVendaPromocao")
      */
     protected $valorUnitVendaPromocao;
 
     /**
-     * @ORM\Column(type="float", precision=8, scale=2, nullable=true)
+     * @ORM\Column(type="float", precision=8, scale=2, nullable=true, name="valorUnitCompra")
      */
     protected $valorUnitCompra;
 

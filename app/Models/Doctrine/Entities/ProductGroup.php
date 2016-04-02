@@ -16,7 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * App\Models\Doctrine\Entities\ProductGroup
  *
  * @ORM\Entity(repositoryClass="ProductGroupRepository")
- * @ORM\Table(name="product_groups", indexes={@ORM\Index(name="product_groups_mandante_index", columns={"mandante"})})
+ * @ORM\Table(name="product_groups", indexes={@ORM\Index(name="product_groups_mandante_index", columns={"mandante"})}) *
  */
 class ProductGroup
 {

@@ -10,6 +10,8 @@ namespace App\Models\Eloquent\Repositories;
 
 use App\Models\Eloquent\ProductGroup;
 use App\Models\RepositoryLayer\ProductGroupRepositoryInterface;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
 
 /**
  * Class ProductGroupRepositoryEloquent
@@ -23,23 +25,24 @@ class ProductGroupRepositoryEloquent extends AbstractRepository implements Produ
     }
 
     public function collectionProductGroups(){
-        return $this->model
-//            ->orderBy('numero')
-            ->get();
+        // TODO: Implement collectionProductGroups() method.
+//        return $this->model
+////            ->orderBy('numero')
+//            ->get();
     }
 
     public function collectionCategorias(){
-        $categ = $this->model
+        $queryResult = $this->model
             ->where('grupo', 'LIKE', 'Categoria:%')
             ->orderBy('grupo')
-            ->get();
+            ->get()
+            ->toArray();
 
-        foreach ($categ as $item) {
+        $fractal = new Manager();
+        $resource = new Collection($queryResult, function(array $item) {
             $icon = '';
-            $nome = substr($item->grupo, 11);
-            $slug = str_slug($nome);
-            if ($slug=='porcoes') continue;
-            switch ($slug){
+            $nome = substr($item['grupo'], 11);
+            switch (str_slug($nome)){
                 case 'cervejas':
                     $icon = 'icon ion-beer';
                     break;
@@ -62,12 +65,14 @@ class ProductGroupRepositoryEloquent extends AbstractRepository implements Produ
                     break;
             }
 
-            $return[] = [
-                'nome' => $nome,
-                'icon' => $icon,
-                'id' => $item->id,
+            return [
+                'id'   => $item['id'],
+                'icon'   => $icon,
+                'nome'   => $nome
             ];
-        }
-        return (json_encode($return));
+        });
+        return $fractal->createData($resource)->toJson();
+
+//        return (json_encode($return));
     }
 }

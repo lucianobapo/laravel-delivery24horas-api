@@ -26,6 +26,15 @@ trait ItemOrderRelationsTrait
     }
 
     /**
+     * An Item Order belongs to an CostAllocate.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function costAllocate() {
+        return $this->belongsTo(CostAllocate::class);
+    }
+
+    /**
      * An Item Order belongs to a Product.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -20,6 +20,13 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class CostAllocate
 {
+    public function __get($name)
+    {
+        if(property_exists($this, $name)){
+            return $this->$name;
+        }
+    }
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned":true})

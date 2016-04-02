@@ -22,6 +22,11 @@ class JsonController extends Controller
         return $productGroupRepository->collectionCategorias();
     }
 
+    public function relatorios(MetodosParaRelatoriosDeOrdem $metodosParaRelatoriosDeOrdem)
+    {
+        return $metodosParaRelatoriosDeOrdem->arrayDosPeriodos();
+    }
+
 //    public function grupoProdutos(ProductGroupRepositoryInterface $productGroupRepository)
 //    {
 //        return $productGroupRepository->collectionProductGroups();

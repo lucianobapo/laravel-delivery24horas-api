@@ -12,6 +12,8 @@ use App\Models\RepositoryLayer\CostAllocateRepositoryInterface;
 use App\Models\RepositoryLayer\OrderRepositoryInterface;
 use Carbon\Carbon;
 //use Symfony\Component\DomCrawler\Form;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
 
 class MetodosParaRelatoriosDeOrdem
 {
@@ -25,17 +27,26 @@ class MetodosParaRelatoriosDeOrdem
      */
     private $costAllocateRepository;
 
-    public function __construct(OrderRepositoryInterface $orderRepository, CostAllocateRepositoryInterface $costAllocateRepository)
+    /**
+     * @var Carbon
+     */
+    private $carbon;
+
+    public function __construct(
+        OrderRepositoryInterface $orderRepository,
+        CostAllocateRepositoryInterface $costAllocateRepository,
+        Carbon $carbon)
     {
         $this->orderRepository = $orderRepository;
         $this->costAllocateRepository = $costAllocateRepository;
+        $this->carbon = $carbon;
     }
 
-    protected function arrayDosCustos(&$collection)
+    private function arrayDosCustos($collection)
     {
         $result = [];
         foreach($collection as $cost){
-            $result[$cost->getNome()]= $cost->getNumero() . ' - ' . $cost->getDescricao();
+            $result[$cost->nome]= $cost->numero . ' - ' . $cost->descricao;
         }
         return $result;
     }
@@ -44,21 +55,21 @@ class MetodosParaRelatoriosDeOrdem
      * @param \Illuminate\Database\Eloquent\Collection|\Doctrine\Common\Collections\ArrayCollection $Orders
      * @return array
      */
-    protected function arrayDeSomaDosItens($Orders)
+    private function arrayDeSomaDosItens($Orders)
     {
         $sum2 = [];
         foreach ($Orders as $order) {
-            foreach ($order->getItemOrders() as $orderItem) {
-                isset($sum2[$orderItem->getCostAllocate()->getNome()][$order->getTypeId()])?
-                    $sum2[$orderItem->getCostAllocate()->getNome()][$order->getTypeId()] = ($orderItem->getValorUnitario()*$orderItem->getQuantidade())+
-                        $sum2[$orderItem->getCostAllocate()->getNome()][$order->getTypeId()]:
-                    $sum2[$orderItem->getCostAllocate()->getNome()][$order->getTypeId()] = ($orderItem->getValorUnitario()*$orderItem->getQuantidade());//
+            foreach ($order->itemOrders as $orderItem) {
+                isset($sum2[$orderItem->costAllocate->nome][$order->type_id])?
+                    $sum2[$orderItem->costAllocate->nome][$order->type_id] = ($orderItem->valor_unitario*$orderItem->quantidade)+
+                        $sum2[$orderItem->costAllocate->nome][$order->type_id]:
+                    $sum2[$orderItem->costAllocate->nome][$order->type_id] = ($orderItem->valor_unitario*$orderItem->quantidade);//
             }
         }
         return $sum2;
     }
 
-    protected function tabelaValoresDeOrdemDeVendaPorCusto(array $valores=[], array $titulos=[])
+    private function geraMatrizDeValores(array $valores=[], array $titulos=[])
     {
         $somaMatriz = [];
         foreach ($titulos as $nome => $descricao) {
@@ -76,53 +87,77 @@ class MetodosParaRelatoriosDeOrdem
         ]);
     }
 
-    public function arrayDosPeriodos()
+    /**
+     * @param $arr
+     * @return mixed
+     */
+    private function preparaArrayNavegacao($arr)
     {
-        $CostAllocates = $this->costAllocateRepository->collectionCostAllocate();
-
-        $arrayDosCustos = $this->arrayDosCustos($CostAllocates);
-
-        $carbon = new Carbon;
-        $Orders = $this->orderRepository->collectionOrdersItemsCosts();
-//        dd($Orders);
-//        $Orders = (new Order)->with('orderItems','orderItems.cost')->get();
-        $countMes = 0;
-        $arr=[];
-        do {
-            $comecoDoMes = $carbon->now()->subMonths($countMes)->firstOfMonth();
-            $fimDoMes = $carbon->now()->subMonths($countMes)->endOfMonth();
-            $OrdersFiltred = $Orders
-                ->filter(function($item) use ($comecoDoMes, $fimDoMes) {
-                    if ($item->getPostedAt()>=$comecoDoMes && $item->getPostedAt()<=$fimDoMes){
-                        return $item;
-                    }
-                });
-
-            if (count($OrdersFiltred)>0) {
-                $arr[$comecoDoMes->timestamp] = array_merge(
-                    ['titulo' => $comecoDoMes->format('F Y')],
-                    $this->tabelaValoresDeOrdemDeVendaPorCusto(
-                        $this->arrayDeSomaDosItens($OrdersFiltred),
-                        $arrayDosCustos
-                    ));
-            }
-            $countMes++;
-        } while ( (count($OrdersFiltred)>0) || ($countMes<2));
-
-//        dd($arr);
-
         $antes = 0;
         foreach ($arr as $key => $value) {
-            $arr[$key]['id']=$key;
+            $arr[$key]['id'] = $key;
             if ($antes == 0) $antes = $key;
             else {
-                $arr[$antes]['depois']=$key;
-                $arr[$key]['antes']=$antes;
+                $arr[$antes]['depois'] = $key;
+                $arr[$key]['antes'] = $antes;
                 $antes = $key;
             }
         }
 
         reset($arr);
         return $arr;
+    }
+
+    /**
+     * @return array
+     */
+    private function separaOrdensPorPeriodo()
+    {
+        $countMes = 0;
+        $arr = [];
+        do {
+            // Periodo mensal
+            $comecoDoMes = $this->carbon->now()->subMonths($countMes)->firstOfMonth();
+            $fimDoMes = $this->carbon->now()->subMonths($countMes)->endOfMonth();
+
+            $OrdersFiltred = $this
+                ->orderRepository
+                ->collectionOrdersItemsCosts()
+                ->filter(function ($item) use ($comecoDoMes, $fimDoMes) {
+                    if ($item->posted_at >= $comecoDoMes && $item->posted_at <= $fimDoMes) {
+                        return $item;
+                    }
+                });
+
+            if (count($OrdersFiltred) > 0) {
+                $arr[$comecoDoMes->timestamp] = array_merge(
+                    ['titulo' => $comecoDoMes->format('F Y')],
+                    $this->geraMatrizDeValores(
+                        $this->arrayDeSomaDosItens($OrdersFiltred),
+                        $this->arrayDosCustos($this->costAllocateRepository->collectionCostAllocate())
+                    ));
+            }
+            $countMes++;
+        } while ((count($OrdersFiltred) > 0) || ($countMes < 3));
+        return $arr;
+    }
+
+    public function arrayDosPeriodos()
+    {
+        $arr = $this->separaOrdensPorPeriodo();
+
+//        dd($arr);
+        $result = $this->preparaArrayNavegacao($arr);
+
+//        dd($result);
+
+        $fractal = new Manager();
+        $resource = new Collection([$result], function(array $item) {
+//            dd($item);
+            return $item;
+        });
+//        dd($resource);
+//        dd($fractal->createData($resource)->toJson());
+        return $fractal->createData($resource)->toJson();
     }
 }
