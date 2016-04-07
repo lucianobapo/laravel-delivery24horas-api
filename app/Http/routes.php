@@ -11,8 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => ['api']], function () {
+//    Route::get('/json/periodos',  ['as'=>'json.periodos', 'uses'=> 'JsonController@periodos']);
+    Route::get('/json/categorias/todas',  ['as'=>'json.categorias', 'uses'=> 'JsonController@categorias']);
+    Route::get('/json/relatorios',  ['as'=>'json.relatorios', 'uses'=> 'JsonController@relatorios']);
+//    Route::get('/json/produtos',  ['as'=>'json.produtos', 'uses'=> 'JsonController@produtos']);
+    Route::get('/json/produtosDelivery/{categ}',  ['as'=>'json.produtosDelivery', 'uses'=> 'JsonController@produtosDelivery']);
+//    Route::get('/json/grupoProdutos',  ['as'=>'json.grupoProdutos', 'uses'=> 'JsonController@grupoProdutos']);
 });
 
 /*
@@ -25,17 +30,12 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
-//    Route::get('/json/periodos',  ['as'=>'json.periodos', 'uses'=> 'JsonController@periodos']);
-Route::get('/json/categorias',  ['middleware' => 'cors', 'as'=>'json.categorias', 'uses'=> 'JsonController@categorias']);
-Route::get('/json/relatorios',  ['middleware' => 'cors', 'as'=>'json.relatorios', 'uses'=> 'JsonController@relatorios']);
-//    Route::get('/json/produtos',  ['as'=>'json.produtos', 'uses'=> 'JsonController@produtos']);
-Route::get('/json/produtosDelivery/{categ}',  ['middleware' => 'cors', 'as'=>'json.produtosDelivery', 'uses'=> 'JsonController@produtosDelivery']);
-//    Route::get('/json/grupoProdutos',  ['as'=>'json.grupoProdutos', 'uses'=> 'JsonController@grupoProdutos']);
-
-
 Route::group(['middleware' => ['web']], function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
+//    Route::get('/image/{resolution}/{file}', ['as'=>'image', 'uses'=> 'ImageController@show']);
 
     Route::get('/relatorios',  ['as'=>'relatorios.teste1', 'uses'=> 'RelatoriosController@index']);
 

@@ -26,6 +26,7 @@ return [
     'rootRole' => env('ROOT_ROLE', 'Root'),
 
     'imageLocation' => 'images',
+    'thumbnailImageLocation' => 'thumbnails',
     'attachmentLocation' => 'attachments',
 
     'newOrderEmailAlert' => env('NEW_ORDER_EMAIL_ALERT', false),

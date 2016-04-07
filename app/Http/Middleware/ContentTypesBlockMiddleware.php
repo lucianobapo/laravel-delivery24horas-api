@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class Cors
+class ContentTypesBlockMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,18 +15,8 @@ class Cors
      */
     public function handle($request, Closure $next)
     {
-        $response = $next($request)
-            ->header('Content-Type', 'application/json')
-            ->header('Access-Control-Allow-Origin', '*')
-//            ->header('Access-Control-Allow-Origin', 'http://ionic.localhost.com, http://ionic.delivery24horas.com')
-            ->header('Access-Control-Allow-Methods', 'GET')
-//            ->header('Access-Control-Allow-Credentials' , 'true')
-//            ->header('Access-Control-Allow-Headers', '*')
-            ->header('Access-Control-Allow-Headers', 'Accept-Encoding, Refer, X-Requested-With, Accept, X-Auth-Token, Origin, Authorization')
-//            ->header('Access-Control-Allow-Headers', 'Cache-Control, Accept, Content-Type, X-Auth-Token, Origin, Authorization')
-//            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        ;
-
+//        if ($request->ajax() || $request->isJson()) return abort(403, 'Acesso negado');
+        $response = $next($request);
         if (config('app.debug')){
 //            logger('header: '.var_export($request->header(), true));
             logger('x-requested-with: '.var_export($request->header('x-requested-with'), true));
@@ -42,13 +32,14 @@ class Cors
             logger('method: '.var_export($request->method(), true));
             logger($response);
         }
+
         if ($request->isJson()) return abort(403, 'Acesso negado');
         if ($request->isXmlHttpRequest()) return abort(403, 'Acesso negado');
-        if ($request->isNoCache()) return abort(403, 'Acesso negado');
+//        if ($request->isNoCache()) return abort(403, 'Acesso negado');
         if (!$request->isMethodSafe()) return abort(403, 'Acesso negado');
-        if ($request->isSecure()) return abort(403, 'Acesso negado');
-        if ($request->method()!="GET") return abort(403, 'Acesso negado');
-        if ($request->header('accept')!="application/json") return abort(403, 'Acesso negado');
+//        if ($request->isSecure()) return abort(403, 'Acesso negado');
+//        if ($request->method()!="GET") return abort(403, 'Acesso negado');
+//        if ($request->header('accept')!="application/json") return abort(403, 'Acesso negado');
         return $response;
     }
 }

@@ -162,6 +162,8 @@ return [
 
         LaravelDoctrine\ORM\DoctrineServiceProvider::class,
 
+        Intervention\Image\ImageServiceProvider::class,
+
     ],
 
     /*
@@ -213,6 +215,8 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
         'EntityManager' => LaravelDoctrine\ORM\Facades\EntityManager::class,
+
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 
