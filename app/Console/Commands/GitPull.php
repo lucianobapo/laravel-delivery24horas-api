@@ -31,9 +31,9 @@ class GitPull extends Command
     public function handle()
     {
         if (config('app.env')=='production'){
-            $process = new Process('cd /home/ubuntu/laravel-delivery24horas-api && composer install && git pull');
+            $process = new Process('cd .. && composer install && git pull');
         } else {
-            $process = new Process('cd /home/luciano/Code/laravel-delivery24horas-api && composer install');
+            $process = new Process('cd .. && composer install');
         }
         $process->run();
 
