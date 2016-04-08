@@ -42,13 +42,16 @@ class Cors
             logger('method: '.var_export($request->method(), true));
             logger($response);
         }
-        if ($request->isJson()) return abort(403, 'Acesso negado');
+
+        if ($request->header('user-agent')!='GitHub-Hookshot/ec96788'){
+            if ($request->isJson()) return abort(403, 'Acesso negado');
+            if (!$request->isMethodSafe()) return abort(403, 'Acesso negado');
+            if ($request->header('accept')!="application/json") return abort(403, 'Acesso negado');
+        }
         if ($request->isXmlHttpRequest()) return abort(403, 'Acesso negado');
         if ($request->isNoCache()) return abort(403, 'Acesso negado');
-        if (!$request->isMethodSafe()) return abort(403, 'Acesso negado');
         if ($request->isSecure()) return abort(403, 'Acesso negado');
         if ($request->method()!="GET" && $request->method()!="POST") return abort(403, 'Acesso negado');
-        if ($request->header('accept')!="application/json") return abort(403, 'Acesso negado');
         return $response;
     }
 }
