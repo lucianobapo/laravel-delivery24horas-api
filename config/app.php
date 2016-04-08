@@ -163,6 +163,7 @@ return [
         LaravelDoctrine\ORM\DoctrineServiceProvider::class,
 
         Intervention\Image\ImageServiceProvider::class,
+        Collective\Remote\RemoteServiceProvider::class,
 
     ],
 
@@ -217,6 +218,7 @@ return [
         'EntityManager' => LaravelDoctrine\ORM\Facades\EntityManager::class,
 
         'Image' => Intervention\Image\Facades\Image::class,
+        'SSH' => Collective\Remote\RemoteFacade::class,
 
     ],
 

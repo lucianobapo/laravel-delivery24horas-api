@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Collective\Remote\RemoteFacade as SSH;
 
 class JsonController extends Controller
 {
@@ -44,7 +45,12 @@ class JsonController extends Controller
 
     public function gitPull(Request $request)
     {
-        logger($request);
+        SSH::into('staging')->run([
+            'composer install',
+            'cd /home/ubuntu/laravel-delivery24horas-api',
+            'git pull',
+        ]);
+//        logger($request);
         return json_encode(['teste'=> $request]);
     }
 }
