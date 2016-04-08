@@ -19,7 +19,7 @@ class Cors
             ->header('Content-Type', 'application/json')
             ->header('Access-Control-Allow-Origin', '*')
 //            ->header('Access-Control-Allow-Origin', 'http://ionic.localhost.com, http://ionic.delivery24horas.com')
-            ->header('Access-Control-Allow-Methods', 'GET')
+            ->header('Access-Control-Allow-Methods', 'GET, POST')
 //            ->header('Access-Control-Allow-Credentials' , 'true')
 //            ->header('Access-Control-Allow-Headers', '*')
             ->header('Access-Control-Allow-Headers', 'Accept-Encoding, Refer, X-Requested-With, Accept, X-Auth-Token, Origin, Authorization')

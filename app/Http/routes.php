@@ -12,9 +12,10 @@
 */
 
 //Route::get('/json/git-pull',  ['as'=>'json.gitPull', 'uses'=> 'JsonController@gitPull']);
-Route::post('/json/git-pull',  ['as'=>'json.gitPull', 'uses'=> 'JsonController@gitPull']);
+
 
 Route::group(['middleware' => ['api']], function () {
+    Route::post('/json/git-pull',  ['as'=>'json.gitPull', 'uses'=> 'JsonController@gitPull']);
 //    Route::get('/json/periodos',  ['as'=>'json.periodos', 'uses'=> 'JsonController@periodos']);
     Route::get('/json/categorias/todas',  ['as'=>'json.categorias', 'uses'=> 'JsonController@categorias']);
     Route::get('/json/relatorios',  ['as'=>'json.relatorios', 'uses'=> 'JsonController@relatorios']);
