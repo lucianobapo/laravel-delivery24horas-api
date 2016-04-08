@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/json/git-pull',  ['as'=>'json.gitPull', 'uses'=> 'JsonController@gitPull']);
+//Route::get('/json/git-pull',  ['as'=>'json.gitPull', 'uses'=> 'JsonController@gitPull']);
 Route::post('/json/git-pull',  ['as'=>'json.gitPull', 'uses'=> 'JsonController@gitPull']);
 
 Route::group(['middleware' => ['api']], function () {

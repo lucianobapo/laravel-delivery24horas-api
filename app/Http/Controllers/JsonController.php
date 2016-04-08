@@ -48,6 +48,6 @@ class JsonController extends Controller
     public function gitPull(Request $request)
     {
         $exitCode = Artisan::call('gpull');
-        return Artisan::output();
+        return response()->json(['posted' => $request->all(),'gpull'=>Artisan::output()]);
     }
 }
