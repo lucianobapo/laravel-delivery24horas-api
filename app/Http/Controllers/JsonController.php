@@ -45,11 +45,16 @@ class JsonController extends Controller
 
     public function gitPull(Request $request)
     {
-        SSH::into('staging')->run([
+        $commands = [
             'composer install',
             'cd /home/ubuntu/laravel-delivery24horas-api',
             'git pull',
-        ]);
+        ];
+        SSH::run($commands, function($line)
+        {
+            logger($line);
+            echo $line.PHP_EOL;
+        });
 //        logger($request);
         return json_encode(['teste'=> $request]);
     }
