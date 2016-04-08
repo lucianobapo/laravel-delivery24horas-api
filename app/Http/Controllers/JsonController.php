@@ -41,4 +41,10 @@ class JsonController extends Controller
     {
         return $productRepository->collectionProductsDelivery($categ);
     }
+
+    public function gitPull(Request $request)
+    {
+        logger($request);
+        return json_encode(['teste'=> $request]);
+    }
 }

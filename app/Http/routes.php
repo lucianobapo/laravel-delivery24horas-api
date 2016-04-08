@@ -11,10 +11,13 @@
 |
 */
 
+Route::get('/json/git-pull',  ['as'=>'json.gitPull', 'uses'=> 'JsonController@gitPull']);
+
 Route::group(['middleware' => ['api']], function () {
 //    Route::get('/json/periodos',  ['as'=>'json.periodos', 'uses'=> 'JsonController@periodos']);
     Route::get('/json/categorias/todas',  ['as'=>'json.categorias', 'uses'=> 'JsonController@categorias']);
     Route::get('/json/relatorios',  ['as'=>'json.relatorios', 'uses'=> 'JsonController@relatorios']);
+
 //    Route::get('/json/produtos',  ['as'=>'json.produtos', 'uses'=> 'JsonController@produtos']);
     Route::get('/json/produtosDelivery/{categ}',  ['as'=>'json.produtosDelivery', 'uses'=> 'JsonController@produtosDelivery']);
 //    Route::get('/json/grupoProdutos',  ['as'=>'json.grupoProdutos', 'uses'=> 'JsonController@grupoProdutos']);
