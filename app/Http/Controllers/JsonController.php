@@ -49,12 +49,12 @@ class JsonController extends Controller
     {
         $data = $request->all();
         $exitCode = Artisan::call('gpull');
-        $return = Artisan::output();
-        dd($data['pusher']);
-        if($request->method()=='POST' && $data->pusher->name=='lucianobapo'){
-            $exitCode = Artisan::call('gpull');
-            $return = ['posted' => $data,'gpull'=>Artisan::output()];
-        } else $return = $data;
+        $return = $data['pusher'].Artisan::output();
+//        dd($data['pusher']);
+//        if($request->method()=='POST' && $data->pusher->name=='lucianobapo'){
+//            $exitCode = Artisan::call('gpull');
+//            $return = ['posted' => $data,'gpull'=>Artisan::output()];
+//        } else $return = $data;
 
         return response()->json($return);
     }
