@@ -1,5 +1,10 @@
 #!/bin/sh
 chgrp www-data -R ./
+chmod -R g+w .git/
+chmod -R u+w .git/
+setfacl -dR -m u::rwx .git/
+setfacl -dR -m g::rwx .git/
+
 chgrp www-data -R storage/
 chmod -R g+w storage/
 chmod -R u+w storage/
