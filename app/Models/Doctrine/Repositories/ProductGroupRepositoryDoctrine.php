@@ -61,6 +61,9 @@ class ProductGroupRepositoryDoctrine extends BaseEntityRepository implements Pro
                 case 'cervejas':
                     $icon = 'icon ion-beer';
                     break;
+                case 'outros':
+                    $icon = 'fa fa-globe fa-2x';
+                    break;
                 case 'porcoes':
                     $icon = 'fa fa-cutlery fa-2x';
                     break;

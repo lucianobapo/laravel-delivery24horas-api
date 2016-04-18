@@ -46,6 +46,9 @@ class ProductGroupRepositoryEloquent extends AbstractRepository implements Produ
                 case 'cervejas':
                     $icon = 'icon ion-beer';
                     break;
+                case 'outros':
+                    $icon = 'fa fa-globe fa-2x';
+                    break;
                 case 'porcoes':
                     $icon = 'fa fa-cutlery fa-2x';
                     break;
