@@ -1,6 +1,6 @@
 <?php
 
-use App\Repositories\BaseMigration;
+use ErpNET\App\Repositories\BaseMigration;
 use Illuminate\Database\Schema\Blueprint;
 
 class CreateProductProductGroupTable extends BaseMigration {
@@ -18,6 +18,7 @@ class CreateProductProductGroupTable extends BaseMigration {
 		{
 			$table->increments('id');
 			$table->timestamps();
+			$table->softDeletes();
 
 			$table->integer('product_id')->unsigned()->index();
 			$table->integer('product_group_id')->unsigned()->index();

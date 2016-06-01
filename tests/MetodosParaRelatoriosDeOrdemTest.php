@@ -1,5 +1,7 @@
 <?php
 
+namespace ErpNET\App\Tests;
+
 use App\Repositories\MetodosParaRelatoriosDeOrdem;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -29,6 +31,7 @@ class MetodosParaRelatoriosDeOrdemTest extends TestCase
 
     public function setUp()
     {
+
         parent::setUp();
         $this->testClass = new MetodosParaRelatoriosDeOrdem();
     }

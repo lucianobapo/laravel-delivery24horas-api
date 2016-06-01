@@ -12,7 +12,7 @@ return array(
      |
      */
 
-    'enabled' => false,
+    'enabled' => null,
 
     /*
      |--------------------------------------------------------------------------
@@ -27,10 +27,11 @@ return array(
      |
      */
     'storage' => array(
-        'enabled' => true,
-        'driver' => 'file', // redis, file, pdo
-        'path' => storage_path() . '/debugbar', // For file driver
+        'enabled'    => true,
+        'driver'     => 'file', // redis, file, pdo, custom
+        'path'       => storage_path('debugbar'), // For file driver
         'connection' => null,   // Leave null for default connection (Redis/PDO)
+        'provider'   => '' // Instance of StorageInterface for custom driver
     ),
 
     /*
@@ -91,16 +92,16 @@ return array(
         'db'              => true,  // Show database (PDO) queries and bindings
         'views'           => true,  // Views with their data
         'route'           => true,  // Current route information
-        'laravel'         => true, // Laravel version and environment
-        'events'          => true, // All events fired
+        'laravel'         => false, // Laravel version and environment
+        'events'          => false, // All events fired
         'default_request' => false, // Regular or special Symfony request logger
         'symfony_request' => true,  // Only one can be enabled..
         'mail'            => true,  // Catch mail messages
-        'logs'            => true, // Add the latest log messages
-        'files'           => true, // Show the included files
-        'config'          => true, // Display config settings
-        'auth'            => true, // Display Laravel authentication status
-        'gate'            => true, // Display Laravel Gate checks
+        'logs'            => false, // Add the latest log messages
+        'files'           => false, // Show the included files
+        'config'          => false, // Display config settings
+        'auth'            => false, // Display Laravel authentication status
+        'gate'            => false, // Display Laravel Gate checks
         'session'         => true,  // Display session data
     ),
 
@@ -128,7 +129,7 @@ return array(
             'hints'             => true,    // Show hints for common mistakes
         ),
         'mail' => array(
-            'full_log' => true
+            'full_log' => false
         ),
         'views' => array(
             'data' => false,    //Note: Can slow down the application, because the data can be quite large..

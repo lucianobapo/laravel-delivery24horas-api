@@ -161,8 +161,11 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
 
         LaravelDoctrine\ORM\DoctrineServiceProvider::class,
+        LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider::class,
 
         Intervention\Image\ImageServiceProvider::class,
+
+        ErpNET\App\Providers\ErpnetServiceProvider::class,
 
     ],
 

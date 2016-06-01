@@ -45,11 +45,11 @@ class Cors
 
         if ($request->header('user-agent')!='GitHub-Hookshot/ec96788'){
             if ($request->isJson()) return abort(403, 'Acesso negado: isJson');
-            if (!$request->isMethodSafe()) return abort(403, 'Acesso negado: isMethodSafe');
+//            if (!$request->isMethodSafe()) return abort(403, 'Acesso negado: isMethodSafe');
             if ($request->header('accept')!="application/json") return abort(403, 'Acesso negado: header(\'accept\')!="application/json"');
         }
         if ($request->isXmlHttpRequest()) return abort(403, 'Acesso negado: isXmlHttpRequest');
-        if ($request->isNoCache()) return abort(403, 'Acesso negado: isNoCache');
+//        if ($request->isNoCache()) return abort(403, 'Acesso negado: isNoCache');
         if ($request->isSecure()) return abort(403, 'Acesso negado: isSecure');
         if ($request->method()!="GET" && $request->method()!="POST") return abort(403, 'Acesso negado: method()!="GET" && method()!="POST"');
         return $response;

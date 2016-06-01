@@ -1,6 +1,6 @@
 <?php
 
-use App\Repositories\BaseMigration;
+use ErpNET\App\Repositories\BaseMigration;
 use Illuminate\Database\Schema\Blueprint;
 
 class CreateProductsTable extends BaseMigration {
@@ -37,6 +37,7 @@ class CreateProductsTable extends BaseMigration {
 
             $table->string('nome');
             $table->string('imagem')->nullable();
+            $table->string('icone')->nullable();
             $table->string('cod_fiscal')->nullable();
             $table->string('cod_barra')->nullable();
             $table->boolean('promocao')->default(0);

@@ -1,6 +1,6 @@
 <?php
 
-use App\Repositories\BaseMigration;
+use ErpNET\App\Repositories\BaseMigration;
 use Illuminate\Database\Schema\Blueprint;
 
 class CreateOrderConfirmationsTable extends BaseMigration {

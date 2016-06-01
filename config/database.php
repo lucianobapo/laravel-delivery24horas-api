@@ -27,6 +27,7 @@ return [
     */
 
     'default' => env('DB_CONNECTION', 'mysql'),
+//    'default' => 'sqlite_testing',
 
     /*
     |--------------------------------------------------------------------------
@@ -55,6 +56,12 @@ return [
         'sqlite_testing' => array(
             'driver'   => 'sqlite',
             'database' => ':memory:',
+            'prefix'   => '',
+        ),
+
+        'sqlite_testing_package' => array(
+            'driver'   => 'sqlite',
+            'database' => base_path('package/database/database.sqlite'),
             'prefix'   => '',
         ),
 

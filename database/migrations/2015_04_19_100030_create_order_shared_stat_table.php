@@ -1,6 +1,6 @@
 <?php
 
-use App\Repositories\BaseMigration;
+use ErpNET\App\Repositories\BaseMigration;
 use Illuminate\Database\Schema\Blueprint;
 
 class CreateOrderSharedStatTable extends BaseMigration {
@@ -17,6 +17,7 @@ class CreateOrderSharedStatTable extends BaseMigration {
         $this->createTable(function(Blueprint $table){
 			$table->increments('id');
 			$table->timestamps();
+			$table->softDeletes();
 
 			$table->integer('order_id')->unsigned()->index();
 			$table->integer('shared_stat_id')->unsigned()->index();

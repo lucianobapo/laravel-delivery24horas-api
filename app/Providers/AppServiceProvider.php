@@ -6,15 +6,9 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    protected $orm = [];
 
     public function __construct(\Illuminate\Contracts\Foundation\Application $app)
     {
-        $this->orm['eloquent']=true;
-        $this->orm['doctrine']=false;
-//        $this->orm['eloquent']=false;
-//        $this->orm['doctrine']=true;
-
         parent::__construct($app);
     }
 
@@ -35,56 +29,46 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
-            \App\Models\RepositoryLayer\OrderRepositoryInterface::class,
-
-            $this->orm['eloquent']?\App\Models\Eloquent\Repositories\OrderRepositoryEloquent::class:($this->orm['doctrine']?
-            function($app) {
-                // This is what Doctrine's EntityRepository needs in its constructor.
-                return new \App\Models\Doctrine\Repositories\OrderRepositoryDoctrine(
-                    $app['em'],
-                    $app['em']->getClassMetaData(\App\Models\Doctrine\Entities\Order::class)
-                );
-            }:false)
-        );
-
-        $this->app->bind(
-            \App\Models\RepositoryLayer\CostAllocateRepositoryInterface::class,
-
-            $this->orm['eloquent']?\App\Models\Eloquent\Repositories\CostAllocateRepositoryEloquent::class:($this->orm['doctrine']?
-            function($app) {
-                // This is what Doctrine's EntityRepository needs in its constructor.
-                return new \App\Models\Doctrine\Repositories\CostAllocateRepositoryDoctrine(
-                    $app['em'],
-                    $app['em']->getClassMetaData(\App\Models\Doctrine\Entities\CostAllocate::class)
-                );
-            }:false)
-        );
-
-        $this->app->bind(
-            \App\Models\RepositoryLayer\ProductRepositoryInterface::class,
-
-            $this->orm['eloquent']?\App\Models\Eloquent\Repositories\ProductRepositoryEloquent::class:($this->orm['doctrine']?
-            function($app) {
-                // This is what Doctrine's EntityRepository needs in its constructor.
-                return new \App\Models\Doctrine\Repositories\ProductRepositoryDoctrine(
-                    $app['em'],
-                    $app['em']->getClassMetaData(\App\Models\Doctrine\Entities\Product::class)
-                );
-            }:false)
-        );
-
-        $this->app->bind(
-            \App\Models\RepositoryLayer\ProductGroupRepositoryInterface::class,
-
-            $this->orm['eloquent']?\App\Models\Eloquent\Repositories\ProductGroupRepositoryEloquent::class:($this->orm['doctrine']?
-            function($app) {
-                // This is what Doctrine's EntityRepository needs in its constructor.
-                return new \App\Models\Doctrine\Repositories\ProductGroupRepositoryDoctrine(
-                    $app['em'],
-                    $app['em']->getClassMetaData(\App\Models\Doctrine\Entities\ProductGroup::class)
-                );
-            }:false)
-        );
+//        $this->app->bind(
+//            \ErpNET\App\Models\RepositoryLayer\PartnerRepositoryInterface::class,
+//
+//            check_orm(\ErpNET\App\Models\Eloquent\Repositories\PartnerRepositoryEloquent::class,[
+//                'repository' => \ErpNET\App\Models\Doctrine\Repositories\PartnerRepositoryDoctrine::class,
+//                'entity' => \ErpNET\App\Models\Doctrine\Entities\Partner::class
+//            ])
+//        );
+//
+//        $this->app->bind(
+//            \ErpNET\App\Models\RepositoryLayer\OrderRepositoryInterface::class,
+//            check_orm(\ErpNET\App\Models\Eloquent\Repositories\OrderRepositoryEloquent::class,[
+//                'repository' => \ErpNET\App\Models\Doctrine\Repositories\OrderRepositoryDoctrine::class,
+//                'entity' => \ErpNET\App\Models\Doctrine\Entities\Order::class
+//            ])
+//        );
+//
+//        $this->app->bind(
+//            \ErpNET\App\Models\RepositoryLayer\CostAllocateRepositoryInterface::class,
+//            check_orm(\ErpNET\App\Models\Eloquent\Repositories\CostAllocateRepositoryEloquent::class,[
+//                'repository' => \ErpNET\App\Models\Doctrine\Repositories\CostAllocateRepositoryDoctrine::class,
+//                'entity' => \ErpNET\App\Models\Doctrine\Entities\CostAllocate::class
+//            ])
+//        );
+//
+//        $this->app->bind(
+//            \ErpNET\App\Models\RepositoryLayer\ProductRepositoryInterface::class,
+//            \ErpNET\App\Models\RepositoryLayer\CostAllocateRepositoryInterface::class,
+//            check_orm(\ErpNET\App\Models\Eloquent\Repositories\ProductRepositoryEloquent::class,[
+//                'repository' => \ErpNET\App\Models\Doctrine\Repositories\ProductRepositoryDoctrine::class,
+//                'entity' => \ErpNET\App\Models\Doctrine\Entities\Product::class
+//            ])
+//        );
+//
+//        $this->app->bind(
+//            \ErpNET\App\Models\RepositoryLayer\ProductGroupRepositoryInterface::class,
+//            check_orm(\ErpNET\App\Models\Eloquent\Repositories\ProductGroupRepositoryEloquent::class,[
+//                'repository' => \ErpNET\App\Models\Doctrine\Repositories\ProductGroupRepositoryDoctrine::class,
+//                'entity' => \ErpNET\App\Models\Doctrine\Entities\ProductGroup::class
+//            ])
+//        );
     }
 }

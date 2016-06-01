@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RepositoryLayer\ProductGroupRepositoryInterface;
-use App\Models\RepositoryLayer\ProductRepositoryInterface;
+use ErpNET\App\Interfaces\OrderServiceInterface;
+use ErpNET\App\Interfaces\PartnerServiceInterface;
+use ErpNET\App\Models\RepositoryLayer\ProductGroupRepositoryInterface;
+use ErpNET\App\Models\RepositoryLayer\ProductRepositoryInterface;
 use App\Repositories\MetodosParaRelatoriosDeOrdem;
 use Illuminate\Http\Request;
 
@@ -45,6 +47,11 @@ class JsonController extends Controller
         return $productRepository->collectionProductsDelivery($categ);
     }
 
+    public function partnerProviderId(PartnerServiceInterface $partnerService, $id)
+    {
+        return $partnerService->jsonPartnerProviderId($id);
+    }
+
     public function gitPull(Request $request)
     {
         $data = $request->all();
@@ -54,5 +61,18 @@ class JsonController extends Controller
         } else $return = $data;
 
         return response()->json($return);
+    }
+
+
+    public function ordem(Request $request, OrderServiceInterface $orderService)
+    {
+        $data = $request->all();
+        logger($data);
+        $returnJson = $orderService->createDeliverySalesOrderWithJson(json_encode($data['message']));
+        $returnObj = json_decode($returnJson);
+        if (property_exists($returnObj,'error'))
+            return $returnJson;
+        else
+            return response()->json(["error"=>true,"message"=>"Json error"]);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Repositories\BaseMigration;
+use ErpNET\App\Repositories\BaseMigration;
 use Illuminate\Database\Schema\Blueprint;
 
 class CreateSharedCurrenciesTable extends BaseMigration {
@@ -21,7 +21,7 @@ class CreateSharedCurrenciesTable extends BaseMigration {
 			$table->softDeletes();
 
 			$table->string('nome_universal', 3);
-			$table->string('descricao');
+			$table->string('descricao')->nullable();
 		});
 
 

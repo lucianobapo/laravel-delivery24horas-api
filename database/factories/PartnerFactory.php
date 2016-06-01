@@ -10,12 +10,16 @@
 | database. Just tell the factory how a default model should look.
 |
 */
-$factory->define(App\Models\Partner::class, function (Faker\Generator $faker) {
-    return [
-        //'user_id' => 'factory|App\Models\User',
-        'mandante' => $faker->word,
-        'nome' => $faker->name(),
-        'data_nascimento' => $faker->date(),
-        'observacao' => $faker->text(),
-    ];
-});
+
+$class = App::make(App\Models\RepositoryLayer\PartnerRepositoryInterface::class);
+
+if ($class->model instanceof Illuminate\Database\Eloquent\Model)
+    $factory->define(get_class($class->model), function (Faker\Generator $faker) {
+        return [
+            //'user_id' => 'factory|App\Models\User',
+            'mandante' => $faker->word,
+            'nome' => $faker->name(),
+            'data_nascimento' => $faker->date(),
+            'observacao' => $faker->text(),
+        ];
+    });
