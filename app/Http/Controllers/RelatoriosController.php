@@ -19,9 +19,13 @@ class RelatoriosController extends Controller
 //        dd($this->repository->find(1)->toArray());
 //        dd($this->repository->find(1));
 //        return $this->repository->find(1);
-return $metodosParaRelatoriosDeOrdem->arrayDosPeriodos();
-        return view('components.appMain')->with([
-            'mesesContent' => $metodosParaRelatoriosDeOrdem->arrayDosPeriodos(),
-        ]);
+//return $metodosParaRelatoriosDeOrdem->arrayDosPeriodos();
+//        return view('components.appMain')->with([
+//            'mesesContent' => $metodosParaRelatoriosDeOrdem->arrayDosPeriodos(),
+//        ]);
+    }
+
+    public function feed(){
+        return view('feed')
     }
 }

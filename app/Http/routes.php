@@ -45,6 +45,7 @@ Route::group(['middleware' => ['web']], function () {
 //    Route::get('/image/{resolution}/{file}', ['as'=>'image', 'uses'=> 'ImageController@show']);
 
     Route::get('/relatorios',  ['as'=>'relatorios.teste1', 'uses'=> 'RelatoriosController@index']);
+    Route::get('/feed',  ['as'=>'feed', 'uses'=> 'RelatoriosController@feed']);
 
 //    Route::get('/ionic',  ['as'=>'ionic.index', 'uses'=> 'IonicController@index']);
 //    Route::resource('/lib/{file}',  ['as'=>'ionic.lib', 'uses'=> 'IonicController@lib']);

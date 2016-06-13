@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use ErpNET\App\Interfaces\OrderServiceInterface;
 use ErpNET\App\Interfaces\PartnerServiceInterface;
+use ErpNET\App\Interfaces\ProductServiceInterface;
 use ErpNET\App\Models\RepositoryLayer\ProductGroupRepositoryInterface;
 use ErpNET\App\Models\RepositoryLayer\ProductRepositoryInterface;
 use App\Repositories\MetodosParaRelatoriosDeOrdem;
@@ -42,9 +43,9 @@ class JsonController extends Controller
 //        return $productRepository->collectionProducts();
 //    }
 
-    public function produtosDelivery(ProductRepositoryInterface $productRepository, $categ)
+    public function produtosDelivery(ProductServiceInterface $productService, $categ)
     {
-        return $productRepository->collectionProductsDelivery($categ);
+        return $productService->collectionProductsDelivery($categ);
     }
 
     public function partnerProviderId(PartnerServiceInterface $partnerService, $id)
