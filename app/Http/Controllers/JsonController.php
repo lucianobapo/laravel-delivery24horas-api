@@ -76,4 +76,8 @@ class JsonController extends Controller
         else
             return response()->json(["error"=>true,"message"=>"Json error"]);
     }
+
+    public function appVersion(){
+        return response()->json(["version"=>"0.1.12"]);
+    }
 }

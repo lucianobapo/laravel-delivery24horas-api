@@ -24,6 +24,7 @@ Route::group(['middleware' => ['api']], function () {
 //    Route::get('/json/produtos',  ['as'=>'json.produtos', 'uses'=> 'JsonController@produtos']);
     Route::get('/json/produtosDelivery/{categ}',  ['as'=>'json.produtosDelivery', 'uses'=> 'JsonController@produtosDelivery']);
     Route::get('/json/partnerProviderId/{id}',  ['as'=>'json.partnerProviderId', 'uses'=> 'JsonController@partnerProviderId']);
+    Route::get('/appVersion',  ['as'=>'json.appVersion', 'uses'=> 'JsonController@appVersion']);
 //    Route::get('/json/grupoProdutos',  ['as'=>'json.grupoProdutos', 'uses'=> 'JsonController@grupoProdutos']);
 });
 
