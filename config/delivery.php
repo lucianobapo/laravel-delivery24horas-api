@@ -16,6 +16,7 @@ return [
 //    'debug' => env('APP_DEBUG'),
 
     // Other stuffs
+    'appLastVersion' => env('APP_LAST_VERSION', "0.0.0"),
     'storeTraffic' => env('APP_STORE_TRAFFIC', false),
     'orderItemCountMax' => env('ORDER_ITEM_COUNT_MAX', 3),
     'orderAttachmentCountMax' => env('ORDER_ATTACHMENT_COUNT_MAX', 3),

@@ -78,6 +78,6 @@ class JsonController extends Controller
     }
 
     public function appVersion(){
-        return response()->json(["version"=>"0.1.13"]);
+        return response()->json(["version"=>config('delivery.appLastVersion')]);
     }
 }
