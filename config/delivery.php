@@ -16,6 +16,8 @@ return [
 //    'debug' => env('APP_DEBUG'),
 
     // Other stuffs
+    'deliveryOpen' => env('DELIVERY_OPEN', true),
+    'deliveryReturnDate' => env('DELIVERY_RETURN', '29/06/2015 às 20:00'),
     'appLastVersion' => env('APP_LAST_VERSION', "0.0.0"),
     'storeTraffic' => env('APP_STORE_TRAFFIC', false),
     'orderItemCountMax' => env('ORDER_ITEM_COUNT_MAX', 3),

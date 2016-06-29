@@ -43,9 +43,9 @@ class JsonController extends Controller
 //        return $productRepository->collectionProducts();
 //    }
 
-    public function produtosDelivery(ProductServiceInterface $productService, $categ)
+    public function produtosDelivery(ProductServiceInterface $productService, $categ, $begin=null, $end=null)
     {
-        return $productService->collectionProductsDelivery($categ);
+        return $productService->collectionProductsDelivery($categ, $begin, $end);
     }
 
     public function partnerProviderId(PartnerServiceInterface $partnerService, $id)
@@ -79,5 +79,12 @@ class JsonController extends Controller
 
     public function appVersion(){
         return response()->json(["version"=>config('delivery.appLastVersion')]);
+    }
+    public function advice(){
+        return response()->json([
+            "advice"=>!config('delivery.deliveryOpen'),
+            "message"=>"Estamos em manutenção no momento, retornaremos novamente em: ".
+                config('delivery.deliveryReturnDate'),
+        ]);
     }
 }
