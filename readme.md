@@ -1,5 +1,10 @@
 ## Laravel PHP Framework
 
+ssh 104.197.251.61
+rsync -rvztPhe ssh /home/luciano/Code/nginx-config/ 104.197.251.61:nginx-config
+
+rsync -rvztPhe ssh .env.production 104.197.251.61:code/laravel-delivery24horas-api/.env
+
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
 [![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
 [![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
