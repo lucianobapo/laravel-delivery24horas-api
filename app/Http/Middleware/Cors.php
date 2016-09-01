@@ -50,7 +50,7 @@ class Cors
         }
         if ($request->isXmlHttpRequest()) return abort(403, 'Acesso negado: isXmlHttpRequest');
 //        if ($request->isNoCache()) return abort(403, 'Acesso negado: isNoCache');
-        if ($request->isSecure()) return abort(403, 'Acesso negado: isSecure');
+//        if ($request->isSecure()) return abort(403, 'Acesso negado: isSecure');
         if ($request->method()!="GET" && $request->method()!="POST") return abort(403, 'Acesso negado: method()!="GET" && method()!="POST"');
         return $response;
     }
