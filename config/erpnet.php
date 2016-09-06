@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'orm' => env('ERPNET_ORM', 'doctrine'), // 'doctriene' or 'eloquent'
-//    'orm' => env('ERPNET_ORM', 'eloquent'), // 'doctriene' or 'eloquent'
+//    'orm' => env('ERPNET_ORM', 'doctrine'), // 'doctriene' or 'eloquent'
+    'orm' => env('ERPNET_ORM', 'eloquent'), // 'doctriene' or 'eloquent'
 
     // Other stuffs
 //    'storeTraffic' => env('APP_STORE_TRAFFIC', false),

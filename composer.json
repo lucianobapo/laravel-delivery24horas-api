@@ -16,7 +16,7 @@
         "league/fractal": "^0.13.0",
         "intervention/image": "^2.3",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "ilhanet/erpnet-helper": "~0.1",
+        "ilhanet/erpnet-helper": "dev-master",
         "ilhanet/erpnet-core": "dev-master"
     },
     "require-dev": {
